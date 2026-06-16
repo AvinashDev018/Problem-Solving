@@ -1,0 +1,19 @@
+class Solution {
+    public int maxMeetings(int[] start, int[] end) {
+       //your code goes here
+       List<int[]> meet=new ArrayList<>();
+       for(int i=0;i<start.length;i++){
+        meet.add(new int[]{end[i],start[i],i+1});
+       }
+       meet.sort(Comparator.comparingInt(a->a[0]))
+       List<Integer> res=new ArrayList<>();
+       int lend=-1;
+       for(int[] m:meet){
+        if(m[1]>lend){
+            res.add(m[2]);
+            lend=m[0];
+        }
+       }
+       return res.size();
+    }
+}
