@@ -1,0 +1,25 @@
+class Solution {
+    public int coinChange(int[] coins, int amount) {
+        int n=coins.length;
+        int[] prev=new int[amount+1];
+        for(int t=0;t<=amount;t++){
+            if(t%coins[0]==0) prev[t]=t/coins[0];
+            else prev[t]=(int)1e9;
+        }
+        for(int i=1;i<n;i++){
+            int[] cur=new int[amount+1];
+            for(int T=0;T<=amount;T++){
+                int nottake=0+prev[T];
+                int take=Integer.MAX_VALUE;
+                if(coins[i]<=T){
+                    take=1+cur[T-coins[i]];
+                }
+                cur[T]=Math.min(take,nottake);
+            }
+            prev=cur;
+        }
+        int ans=prev[amount];
+        if(ans>=(int)1e9) return -1;
+        return ans;
+    }
+}
